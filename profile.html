@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto;">
+    <h1>Мой профиль</h1>
+    
+    <div style="background: var(--bg-main); padding: 30px; border-radius: 10px; margin-top: 20px;">
+        
+        <div style="background: var(--text-white); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+            <p style="margin: 10px 0;"><strong style="display: inline-block; width: 120px; color: var(--primary);">Имя:</strong> 
+                {{ user.first_name if user.first_name else '—' }}</p>
+            <p style="margin: 10px 0;"><strong style="display: inline-block; width: 120px; color: var(--primary);">Отчество:</strong> 
+                {{ user.patronymic if user.patronymic else '—' }}</p>
+            <p style="margin: 10px 0;"><strong style="display: inline-block; width: 120px; color: var(--primary);">Фамилия:</strong> 
+                {{ user.last_name if user.last_name else '—' }}</p>
+            <p style="margin: 10px 0;"><strong style="display: inline-block; width: 120px; color: var(--primary);">Email:</strong> 
+                {{ user.email }}</p>
+            <p style="margin: 10px 0;"><strong style="display: inline-block; width: 120px; color: var(--primary);">Телефон:</strong> 
+                {{ user.phone if user.phone else '—' }}</p>
+        </div>
+        
+        <div style="text-align: center; display: flex; gap: 15px; justify-content: center;">
+            <a href="{{ url_for('edit_profile') }}" class="btn btn-primary">Редактировать</a>
+            <a href="{{ url_for('index') }}" class="btn btn-outline">На главную</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

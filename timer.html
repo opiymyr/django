@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+    <h1 style="text-align: center;">Таймер для учёбы</h1>
+    
+
+    <div style="background: var(--bg-main); border-radius: 20px; padding: 40px; text-align: center;">
+        <div id="timer" style="font-size: 5rem; font-weight: bold; font-family: monospace; color: var(--primary); margin: 20px 0;">
+            25:00
+        </div>
+        
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin: 30px 0;">
+            <button onclick="setTime(5)" class="btn btn-outline">5 минут</button>
+            <button onclick="setTime(15)" class="btn btn-outline">15 минут</button>
+            <button onclick="setTime(25)" class="btn btn-outline">25 минут (Помодоро)</button>
+            <button onclick="setTime(45)" class="btn btn-outline">45 минут</button>
+            <button onclick="setTime(60)" class="btn btn-outline">60 минут</button>
+        </div>
+        
+        <div style="display: flex; gap: 15px; justify-content: center;">
+            <button onclick="startTimer()" class="btn btn-primary" id="startBtn">Старт</button>
+            <button onclick="pauseTimer()" class="btn btn-login" id="pauseBtn">Пауза</button>
+            <button onclick="resetTimer()" class="btn btn-outline" id="resetBtn">Сброс</button>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let timeLeft = 25 * 60; 
+    let timerId = null;
+    let isRunning = false;
+    
+;
+    
+    function updateDisplay() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        const display = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        document.getElementById('timer').innerHTML = display;
+        
+        if (timeLeft <= 60) {
+            document.getElementById('timer').style.color = '#dc3545';
+        } else {
+            document.getElementById('timer').style.color = 'var(--primary)';
+        }
+    }
+    
+    function setTime(minutes) {
+        if (isRunning) {
+            pauseTimer();
+        }
+        timeLeft = minutes * 60;
+        updateDisplay();
+    }
+    
+    function startTimer() {
+        if (timerId !== null) return;
+        isRunning = true;
+        timerId = setInterval(() => {
+            if (timeLeft > 0) {
+                timeLeft--;
+                updateDisplay();
+            }
+            if (timeLeft === 0) {
+                clearInterval(timerId);
+                timerId = null;
+                isRunning = false;
+                alert('Время вышло! Отличная работа!');
+            }
+        }, 1000);
+    }
+    
+    function pauseTimer() {
+        if (timerId !== null) {
+            clearInterval(timerId);
+            timerId = null;
+            isRunning = false;
+        }
+    }
+    
+    function resetTimer() {
+        pauseTimer();
+        timeLeft = 25 * 60;
+        updateDisplay();
+    }
+</script>
+
+<style>
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.05); }
+    }
+    
+    #timer {
+        transition: all 0.3s ease;
+    }
+    
+    button {
+        cursor: pointer;
+    }
+</style>
+{% endblock %}

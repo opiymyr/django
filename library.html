@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <h1>Библиотека ссылок</h1>
+        <a href="{{ url_for('add_folder') }}" class="btn btn-primary">Новая папка</a>
+    </div>
+    
+    {% if folders %}
+        {% for folder in folders %}
+            <div style="background: var(--bg-main); border-radius: 15px; padding: 20px; margin-bottom: 30px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h2 style="margin: 0;">
+                        {{ folder.name }}
+                    </h2>
+                    <div>
+                        <a href="{{ url_for('add_link', folder_id=folder.id) }}" class="btn btn-login" style="padding: 5px 15px; margin-right: 10px;">Добавить ссылку</a>
+                        <a href="{{ url_for('delete_folder', folder_id=folder.id) }}" class="btn btn-outline" style="padding: 5px 15px;" onclick="return confirm('Удалить папку и все ссылки?')">Удалить папку</a>
+                    </div>
+                </div>
+                
+                {% for link in links if link.folder_id == folder.id %}
+                    <div style="background: white; border-radius: 10px; padding: 15px; margin-bottom: 10px;">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div style="flex: 1;">
+                                <a href="{{ link.url }}" target="_blank" style="font-size: 1.1rem; font-weight: bold; color: var(--primary); text-decoration: none;">
+                                    {{ link.title }}
+                                </a>
+                                {% if link.description %}
+                                    <p style="color: #666; margin: 5px 0 0 0; font-size: 0.9rem;">{{ link.description }}</p>
+                                {% endif %}
+                                <small style="color: #999; display: block; margin-top: 5px;">{{ link.url[:50] }}{% if link.url|length > 50 %}...{% endif %}</small>
+                            </div>
+                            <a href="{{ url_for('delete_link', link_id=link.id) }}" class="btn btn-outline" style="padding: 5px 10px;" onclick="return confirm('Удалить ссылку?')">Удалить</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div style="background: white; border-radius: 10px; padding: 30px; text-align: center; color: #999;">
+                        В этой папке пока нет ссылок
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div style="text-align: center; padding: 60px; background: var(--bg-main); border-radius: 10px;">
+            <p style="font-size: 1.2rem;">У вас пока нет папок</p>
+            <p>Создайте папку и добавляйте полезные ссылки!</p>
+            <a href="{{ url_for('add_folder') }}" class="btn btn-primary" style="margin-top: 20px;">Создать первую папку</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

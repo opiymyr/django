@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 0 auto;">
+    <h1>Редактировать профиль</h1>
+    
+    <form method="POST" style="background: var(--bg-main); padding: 30px; border-radius: 10px;">
+        <div class="form-group">
+            <label>Фамилия:</label>
+            <input type="text" name="last_name" value="{{ user.last_name or '' }}" placeholder="Ваша фамилия">
+        </div>
+        
+        <div class="form-group">
+            <label>Имя:</label>
+            <input type="text" name="first_name" value="{{ user.first_name or '' }}" placeholder="Ваше имя">
+        </div>
+        
+        <div class="form-group">
+            <label>Отчество:</label>
+            <input type="text" name="patronymic" value="{{ user.patronymic or '' }}" placeholder="Ваше отчество">
+        </div>
+        
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" value="{{ user.email }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Телефон:</label>
+            <input type="tel" name="phone" value="{{ user.phone or '' }}" placeholder="+7 (XXX) XXX-XX-XX">
+        </div>
+        
+        <div style="display: flex; gap: 15px; margin-top: 30px;">
+            <button type="submit" class="btn btn-primary" style="flex: 1;">Сохранить</button>
+            <a href="{{ url_for('profile') }}" class="btn btn-outline" style="flex: 1; text-align: center;">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

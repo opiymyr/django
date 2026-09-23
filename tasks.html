@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <h1>Мои задачи</h1>
+        <a href="{{ url_for('add_task') }}" class="btn btn-primary"> Новая задача</a>
+    </div>
+    
+    {% if tasks %}
+        <div style="background: var(--bg-main); border-radius: 10px; padding: 20px;">
+            {% for task in tasks %}
+                <div style="background: white; border-radius: 8px; padding: 15px; margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                <h3 style="margin: 0;">
+                                    {{ task.title }}
+                                </h3>
+                                {% if task.priority == 'high' %}
+                                    <span style="background: #dc3545; color: white; padding: 2px 8px; border-radius: 5px; font-size: 0.7rem;">Важно</span>
+                                {% elif task.priority == 'low' %}
+                                    <span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 5px; font-size: 0.7rem;">Не срочно</span>
+                                {% endif %}
+                            </div>
+                            
+                            {% if task.description %}
+                                <p style="color: #666; margin: 8px 0 0 0;">{{ task.description }}</p>
+                            {% endif %}
+                            
+                            <div style="display: flex; gap: 15px; margin-top: 10px;">
+                                {% if task.deadline %}
+                                    <small style="color: #999;">Дедлайн: {{ task.deadline }}</small>
+                                {% endif %}
+                                <small style="color: #999;">Создано: {{ task.created_at[:10] }}</small>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 10px; margin-left: 15px;">
+                            <a href="{{ url_for('complete_task', task_id=task.id) }}" class="btn btn-login" style="padding: 5px 12px;">Выполнить</a>
+                            <a href="{{ url_for('delete_task', task_id=task.id) }}" class="btn btn-outline" style="padding: 5px 12px;" onclick="return confirm('Удалить задачу?')">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div style="text-align: center; padding: 60px; background: var(--bg-main); border-radius: 10px;">
+            <p style="font-size: 1.2rem;">У вас пока нет задач</p>
+            <p>Нажмите "Новая задача", чтобы создать первую!</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

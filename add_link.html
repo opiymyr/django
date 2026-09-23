@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 0 auto;">
+    <h1>Новая ссылка</h1>
+    
+    <form method="POST" style="background: var(--bg-main); padding: 30px; border-radius: 10px;">
+        <input type="hidden" name="folder_id" value="{{ folder_id }}">
+        
+        <div class="form-group">
+            <label>Название:</label>
+            <input type="text" name="title" placeholder="Например: Уроки по Python" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Ссылка (URL):</label>
+            <input type="url" name="url" placeholder="https://..." required>
+        </div>
+        
+        <div class="form-group">
+            <label>Описание (необязательно):</label>
+            <textarea name="description" rows="3" placeholder="Что на этой ссылке?"></textarea>
+        </div>
+        
+        <div style="display: flex; gap: 15px;">
+            <button type="submit" class="btn btn-primary">Добавить</button>
+            <a href="{{ url_for('library') }}" class="btn btn-outline">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

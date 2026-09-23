@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} Mindly</title>
+    <style>
+        :root {
+            --bg-main: #EDEBE8;    
+            --btn-login: #8994A9;
+            --btn-reg: #B5482A;     
+            --primary: #0D1846;    
+            --text-white: #FFFFFF;  
+            --text-dark: #0D1846;    
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;  
+            background: var(--bg-main);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: var(--primary);
+            color: var(--text-white);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            text-decoration: none;
+        }
+        
+        .logo:hover {
+            opacity: 0.9;
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav-link {
+            padding: 8px 20px;
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        main {
+            padding: 40px 0;
+            min-height: calc(100vh - 140px);
+        }
+        
+        .main-card {
+            background: var(--text-white);
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1, h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #17a2b8;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            text-decoration: none;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-align: center;
+        }
+        
+        .btn-login {
+            background: var(--btn-login);
+            color: var(--text-white);
+        }
+        
+        .btn-login:hover {
+            background: #6b7a94;
+            transform: translateY(-2px);
+        }
+        
+        .btn-reg {
+            background: var(--btn-reg);
+            color: var(--text-white);
+        }
+        
+        .btn-reg:hover {
+            background: #94371e;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: var(--text-white);
+        }
+        
+        .btn-primary:hover {
+            background: #0a1238;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--text-white);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(13, 24, 70, 0.1);
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .card {
+            background: var(--text-white);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .card h3 {
+            color: var(--primary);
+        }
+        
+        .card p {
+            color: var(--primary);
+            opacity: 0.8;
+        }
+        
+        .profile-info {
+            background: var(--bg-main);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .profile-field {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: var(--text-white);
+            border-radius: 5px;
+        }
+        
+        .profile-label {
+            font-weight: 700;
+            color: var(--primary);
+            display: inline-block;
+            width: 120px;
+        }
+        
+        .profile-value {
+            color: var(--primary);
+        }
+        
+        footer {
+            background: var(--primary);
+            color: var(--text-white);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .profile-label {
+                display: block;
+                width: 100%;
+                margin-bottom: 5px;
+            }
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--primary);
+            border-radius: 10px;
+            color: var(--text-white);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="{{ url_for('index') }}" class="logo">Mindly</a>
+                        <nav>
+                            
+                        {% if session.user_id %}
+                            <a href="{{ url_for('dashboard') }}" class="nav-link">Рабочий стол</a>
+                            <a href="{{ url_for('notes') }}" class="nav-link">Заметки</a>
+                            <a href="{{ url_for('tasks') }}" class="nav-link">Задачи</a>
+                            <a href="{{ url_for('timer') }}" class="nav-link">Таймер</a>
+                            <a href="{{ url_for('library') }}" class="nav-link">Библиотека</a>
+                            <a href="{{ url_for('profile') }}" class="nav-link">Профиль</a>
+                            <a href="{{ url_for('logout') }}" class="nav-link">Выход</a>
+                        {% else %}
+                            <a href="{{ url_for('index') }}" class="nav-link">Главная</a>
+                        {% endif %}
+                    </nav>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <div class="main-card">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>© 2024 Mindly</p>
+        </div>
+    </footer>
+</body>
+</html>

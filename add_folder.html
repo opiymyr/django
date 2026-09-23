@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 0 auto;">
+    <h1>Новая папка</h1>
+    
+    <form method="POST" style="background: var(--bg-main); padding: 30px; border-radius: 10px;">
+        <div class="form-group">
+            <label>Название папки:</label>
+            <input type="text" name="name" placeholder="Например: Python, Высшая математика" required>
+        </div>
+        
+        <div style="display: flex; gap: 15px;">
+            <button type="submit" class="btn btn-primary">Создать</button>
+            <a href="{{ url_for('library') }}" class="btn btn-outline">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

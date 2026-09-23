@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center; padding: 50px;">
+    <h1>Добро пожаловать!</h1>
+    <p>Для начала работы зарегистрируйтесь или войдите</p>
+    
+    <div style="margin-top: 30px;">
+        <a href="{{ url_for('register') }}" class="btn btn-primary">Регистрация</a>
+        <a href="{{ url_for('login') }}" class="btn btn-login">Вход</a>
+    </div>
+</div>
+{% endblock %}

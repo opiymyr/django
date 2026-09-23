@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <h1>Мои заметки</h1>
+        <a href="{{ url_for('add_note') }}" class="btn btn-primary">Новая заметка</a>
+    </div>
+    
+    {% if notes %}
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+            {% for note in notes %}
+                <div style="background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    <h3 style="margin: 0 0 10px 0; color: var(--primary);">{{ note.title }}</h3>
+                    <p style="color: #666; line-height: 1.5;">{{ note.content }}</p>
+                    <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+                        <small style="color: #999;">{{ note.created_at[:16] }}</small>
+                        <a href="{{ url_for('delete_note', note_id=note.id) }}" class="btn btn-outline" style="padding: 5px 10px; font-size: 0.85rem;" onclick="return confirm('Удалить заметку?')">Удалить</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div style="text-align: center; padding: 60px; background: var(--bg-main); border-radius: 10px;">
+            <p style="font-size: 1.2rem;">У вас пока нет заметок</p>
+            <p>Нажмите "Новая заметка", чтобы создать первую!</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

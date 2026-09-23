@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 0 auto;">
+    <h1>Регистрация</h1>
+    
+    <form method="POST">
+        <div class="form-group">
+            <label>Имя пользователя:</label>
+            <input type="text" name="username" placeholder="Придумайте имя" required>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="form-group">
+                <label>Фамилия:</label>
+                <input type="text" name="last_name" placeholder="Фамилия">
+            </div>
+            
+            <div class="form-group">
+                <label>Имя:</label>
+                <input type="text" name="first_name" placeholder="Имя">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Отчество:</label>
+            <input type="text" name="patronymic" placeholder="Отчество">
+        </div>
+        
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" placeholder="Email" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Телефон:</label>
+            <input type="tel" name="phone" placeholder="Телефон">
+        </div>
+        
+        <div class="form-group">
+            <label>Пароль:</label>
+            <input type="password" name="password" placeholder="Пароль" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Подтвердите пароль:</label>
+            <input type="password" name="confirm_password" placeholder="Повторите пароль" required>
+        </div>
+        
+        <button type="submit" class="btn btn-reg" style="width: 100%;">Зарегистрироваться</button>
+    </form>
+    
+    <hr>
+    <p style="text-align: center;">Уже есть аккаунт? <a href="{{ url_for('login') }}" style="color: var(--btn-reg);">Войдите</a></p>
+</div>
+{% endblock %}
